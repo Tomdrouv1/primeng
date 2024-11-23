@@ -196,3 +196,23 @@ export interface CalendarMonthChangeEvent {
      */
     year?: number;
 }
+
+/**
+ * Custom Calendar time change event.
+ * @see {@link Calendar.onTimeChange}
+ * @group Events
+ */
+export interface CalendarTimeChangeEvent {
+    /**
+     * New hour.
+     */
+    hour?: number;
+    /**
+     * New minute.
+     */
+    minute?: number;
+    /**
+     * New second.
+     */
+    second?: number;
+}

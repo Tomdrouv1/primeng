@@ -2057,4 +2057,29 @@ describe('Calendar', () => {
 
         jasmine.clock().uninstall();
     });
+
+    it('should change time using inputs', () => {
+        fixture.detectChanges();
+
+        const defaultHour = calendar.currentHour;
+        const defaultMinute = calendar.currentMinute;
+        const onHourChangeSpy = spyOn(calendar, 'onHourChange').and.callThrough();
+        const onMinuteChangeSpy = spyOn(calendar, 'onMinuteChange').and.callThrough();
+        const inputs = fixture.debugElement.queryAll(By.css('.p-time-input'));
+        const hourInput = inputs[0];
+        const minuteInput = inputs[1];
+
+        hourInput.nativeElement.valueAsNumber = 9;
+        hourInput.nativeElement.valueAsNumber = 34;
+        fixture.detectChanges();
+
+        expect(hourInput.nativeElement.value).not.toEqual(defaultHour.toString());
+        expect(hourInput.nativeElement.value).toEqual(calendar.currentHour.toString());
+        expect(minuteInput.nativeElement.value).not.toEqual(defaultMinute.toString());
+        expect(minuteInput.nativeElement.value).toEqual(calendar.currentMinute.toString());
+        expect(calendar.currentMinute).toEqual(9);
+        expect(calendar.currentHour).toEqual(34);
+        expect(onHourChangeSpy).toHaveBeenCalled();
+        expect(onMinuteChangeSpy).toHaveBeenCalled();
+    });
 });
